@@ -5,6 +5,7 @@ import ChevronIcon from '../components/ChevronIcon.jsx'
 import Select from '../components/Select.jsx'
 import PriceChangeAlert from '../components/PriceChangeAlert.jsx'
 import usePriceRecalcFeedback from '../components/usePriceRecalcFeedback.js'
+import TermSwitchSheet from '../components/TermSwitchSheet.jsx'
 
 // Prefix public assets with Vite's configured base so they resolve under
 // the deployed subpath (e.g. /playground-variation-a-share/logo.svg).
@@ -784,6 +785,8 @@ export default function Phase1Page() {
   const [stepIndex, setStepIndex] = useState(4)
   const [selectedTier, setSelectedTier] = useState('standard')
   const viewport = 'mobile'
+  const [policyTerm, setPolicyTerm] = useState('6 month')
+  const [termSheetOpen, setTermSheetOpen] = useState(false)
   const [draftSelections, setDraftSelections] = useState(defaultSelections)
   const [committedSelections, setCommittedSelections] =
     useState(defaultSelections)
@@ -851,8 +854,12 @@ export default function Phase1Page() {
       <div className="pr-content">
         <div className="pr-hero">
           <div className="pr-hero-title-block">
-            <h1 className="pr-hero-title">Your 6 month auto policy</h1>
-            <button type="button" className="pr-change-policy-term">
+            <h1 className="pr-hero-title">Your {policyTerm} auto policy</h1>
+            <button
+              type="button"
+              className="pr-change-policy-term"
+              onClick={() => setTermSheetOpen(true)}
+            >
               Change policy term
             </button>
           </div>
@@ -1044,6 +1051,15 @@ export default function Phase1Page() {
         </div>
       </footer>
     </div>
+    <TermSwitchSheet
+      open={termSheetOpen}
+      current={policyTerm}
+      onSelect={(id) => {
+        setPolicyTerm(id)
+        setTermSheetOpen(false)
+      }}
+      onClose={() => setTermSheetOpen(false)}
+    />
     </div>
   )
 }
