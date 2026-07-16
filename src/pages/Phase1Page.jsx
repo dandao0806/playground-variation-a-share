@@ -864,7 +864,7 @@ export default function Phase1Page() {
       <div className="pr-content">
         <div className="pr-hero">
           <div className="pr-hero-title-block">
-            <h1 className="pr-hero-title">Your {policyTerm} auto policy</h1>
+            <h1 className="pr-hero-title">Your {policyTerm === '12 month' ? 'Annual' : policyTerm} auto policy</h1>
             <button
               type="button"
               className="pr-change-policy-term"
